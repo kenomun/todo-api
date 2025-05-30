@@ -34,3 +34,15 @@ exports.createTask = (req, res) => {
     res.status(201).json(nuevaTarea);
   });
 };
+
+exports.getAllTasks = (req, res) => {
+  const sql = 'SELECT * FROM tasks ORDER BY fechaCreacion DESC';
+
+  db.all(sql, [], (err, rows) => {
+    if (err) {
+      return res.status(500).json({ error: 'Error al obtener las tareas.' });
+    }
+
+    res.json(rows);
+  });
+};

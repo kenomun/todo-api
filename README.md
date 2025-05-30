@@ -8,7 +8,7 @@ Permite crear, consultar, actualizar y eliminar tareas, además de emitir evento
 ## 🚀 Requisitos previos
 
 - Node.js 16 o superior
-- npm (viene con Node.js)
+- npm 
 - Git (opcional, si clonas el repo)
 
 ---
@@ -17,7 +17,7 @@ Permite crear, consultar, actualizar y eliminar tareas, además de emitir evento
 
 1. Clona el repositorio o descarga el código:
    ```bash
-   git clone https://github.com/tu_usuario/todo-api.git
+   git clone https://github.com/kenomun/todo-api
    cd todo-api
 
 
@@ -53,16 +53,20 @@ Permite crear, consultar, actualizar y eliminar tareas, además de emitir evento
 
 📌 Endpoints REST
 
-✅ POST /tasks
+### ✅ POST /tasks
 
 Descripción: Crea una nueva tarea.
 
 Request body:
+```json
+[
 
-{
-  "titulo": "Estudiar WebSockets",
-  "descripcion": "Revisar documentación de socket.io"
-}
+    {
+        "titulo": "Estudiar WebSockets",
+        "descripcion": "Revisar documentación de socket.io"
+    }
+]
+```
 
 
 Restricciones:
@@ -73,14 +77,41 @@ Restricciones:
 
 Response:
 
-{
-  "id": 1,
-  "titulo": "Estudiar WebSockets",
-  "descripcion": "Revisar documentación de socket.io",
-  "status": "pendiente",
-  "fechaCreacion": "2025-05-30T15:25:00.000Z",
-  "fechaActualizacion": "2025-05-30T15:25:00.000Z"
-}
+```json
+[
+    {
+        "id": 1,
+        "titulo": "Estudiar WebSockets",
+        "descripcion": "Revisar documentación de socket.io",
+        "status": "pendiente",
+        "fechaCreacion": "2025-05-30T15:25:00.000Z",
+        "fechaActualizacion": "2025-05-30T15:25:00.000Z"
+    }
+]
+```
+
+
+
+### ✅ GET /tasks
+
+**Descripción:** Obtiene todas las tareas ordenadas por fecha de creación (más recientes primero).
+
+**Response:**
+
+```json
+[
+  {
+    "id": 1,
+    "titulo": "Estudiar WebSockets",
+    "descripcion": "Revisar documentación de socket.io",
+    "status": "pendiente",
+    "fechaCreacion": "2025-05-30T15:25:00.000Z",
+    "fechaActualizacion": "2025-05-30T15:25:00.000Z"
+  },
+  ...
+]
+```
+
 
 
 🔌 WebSocket
