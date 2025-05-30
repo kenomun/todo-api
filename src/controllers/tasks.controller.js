@@ -81,3 +81,24 @@ exports.updateTaskStatus = (req, res) => {
 };
 
 
+exports.deleteTask = (req, res) => {
+  const { id } = req.params;
+
+  const sql = `DELETE FROM tasks WHERE id = ?`;
+
+  db.run(sql, [id], function (err) {
+    if (err) {
+      return res.status(500).json({ error: 'Error al eliminar la tarea.' });
+    }
+
+    if (this.changes === 0) {
+      return res.status(404).json({ error: 'Tarea no encontrada.' });
+    }
+
+    // Emitir evento WebSocket si la tarea se elimina correctamente
+    const io = req.app.get('io');
+    io.emit('taskDeleted', { id: parseInt(id) });
+
+    res.json({ message: 'Tarea eliminada correctamente', id: parseInt(id) });
+  });
+};
