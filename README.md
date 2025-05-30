@@ -29,10 +29,13 @@ Permite crear, consultar, actualizar y eliminar tareas, además de emitir evento
 
 3. Crea el archivo .env en la raíz del proyecto:   
 
-    PORT=3000 (o le puerto de tu preferencia)
+    PORT=3000 (o el puerto de tu preferencia)
+
+    **si no se configura por defecto la aplicacion abrira en el puerto 3000 
+
 
  
-4. Inicia el servidorla aplicación
+4. Inicia la aplicación
 
     npm run dev
 
