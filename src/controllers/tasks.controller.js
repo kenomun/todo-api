@@ -31,9 +31,15 @@ exports.createTask = (req, res) => {
       fechaActualizacion: new Date().toISOString()
     };
 
+    // Emitir evento WebSocket
+    const io = req.app.get('io');
+    io.emit('taskCreated', nuevaTarea);
+
     res.status(201).json(nuevaTarea);
+
   });
 };
+
 
 exports.getAllTasks = (req, res) => {
   const sql = 'SELECT * FROM tasks ORDER BY fechaCreacion DESC';
@@ -48,12 +54,13 @@ exports.getAllTasks = (req, res) => {
 };
 
 
+const estadosPermitidos = ['pendiente', 'completada'];
 exports.updateTaskStatus = (req, res) => {
   const { id } = req.params;
   const { status } = req.body;
 
-  if (!status) {
-    return res.status(400).json({ error: 'El campo "status" es obligatorio.' });
+  if (!status || !estadosPermitidos.includes(status)) {
+    return res.status(400).json({ error: 'Estado inválido. Debe ser "pendiente" o "completada".' });
   }
 
   const fechaActualizacion = new Date().toISOString();
@@ -65,6 +72,7 @@ exports.updateTaskStatus = (req, res) => {
 
   db.run(sql, [status, fechaActualizacion, id], function (err) {
     if (err) {
+      console.error(err);
       return res.status(500).json({ error: 'Error al actualizar el estado de la tarea.' });
     }
 
@@ -79,6 +87,7 @@ exports.updateTaskStatus = (req, res) => {
     res.json({ message: 'Tarea actualizada correctamente', id: parseInt(id), status });
   });
 };
+
 
 
 exports.deleteTask = (req, res) => {

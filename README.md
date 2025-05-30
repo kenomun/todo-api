@@ -66,6 +66,7 @@ Request body:
         "descripcion": "Revisar documentación de socket.io"
     }
 ]
+
 ```
 
 Restricciones:
@@ -135,7 +136,7 @@ Response:
 
 **DELETE /tasks/:id**
 
-Elimina una tarea según su ID. Si la tarea se elimina correctamente, también se emite un evento WebSocket `taskDeleted` con el ID de la tarea eliminada.
+Elimina una tarea según su ID. Si la tarea se elimina correctamente
 
 **Ejemplo de request:**
 
@@ -149,11 +150,6 @@ DELETE /tasks/1
   "id": 1
 }
 
-Evento WebSocket emitido:
-{
-  "event": "taskDeleted",
-  "payload": { "id": 3 }
-}
 ```
 
 
@@ -161,4 +157,41 @@ Evento WebSocket emitido:
 
 🔌 WebSocket
 
-En construcción…
+Esta API utiliza Socket.IO para enviar actualizaciones en tiempo real al cliente cuando ocurren acciones sobre las tareas. Los eventos disponibles son:
+
+### ✅ taskCreated
+Se emite cuando se crea una nueva tarea exitosamente.
+
+**Payload del evento:**
+```json
+    {
+    "id": 1,
+    "titulo": "Nueva tarea",
+    "descripcion": "Descripción opcional",
+    "status": "pendiente",
+    "fechaCreacion": "2024-07-01T12:00:00.000Z",
+    "fechaActualizacion": "2024-07-01T12:00:00.000Z"
+    }
+```
+
+### 🔄 taskUpdated
+Se emite cuando se actualiza el estado de una tarea.
+
+**Payload del evento:**
+```json
+    {
+    "id": 1,
+    "status": "completada"
+    }
+```
+
+### ❌ taskDeleted
+Se emite cuando se elimina una tarea.
+
+**Payload del evento:**
+```json
+
+    {
+    "id": 1
+    }
+```
