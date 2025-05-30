@@ -33,8 +33,9 @@ exports.createTask = (req, res) => {
 
     // Emitir evento WebSocket
     const io = req.app.get('io');
-    io.emit('newTask', nuevaTarea);
-
+    if (io) {
+        io.emit('newTask', nuevaTarea);
+    }
     res.status(201).json(nuevaTarea);
 
   });
@@ -82,8 +83,9 @@ exports.updateTaskStatus = (req, res) => {
 
     // Emitir evento WebSocket
     const io = req.app.get('io');
-    io.emit('taskUpdated', { id: parseInt(id), status });
-
+    if (io) {
+        io.emit('taskUpdated', { id: parseInt(id), status });
+    }
     res.json({ message: 'Tarea actualizada correctamente', id: parseInt(id), status });
   });
 };
@@ -106,8 +108,9 @@ exports.deleteTask = (req, res) => {
 
     // Emitir evento WebSocket si la tarea se elimina correctamente
     const io = req.app.get('io');
-    io.emit('taskDeleted', { id: parseInt(id) });
-
+    if (io) {
+        io.emit('taskDeleted', { id: parseInt(id) });
+    }
     res.json({ message: 'Tarea eliminada correctamente', id: parseInt(id) });
   });
 };
