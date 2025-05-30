@@ -35,7 +35,7 @@ Permite crear, consultar, actualizar y eliminar tareas, además de emitir evento
  4. Inicia el servidor:
 
     - En modo desarrollo
-    
+
         npm run dev
 
     - Ejecutar los test
@@ -120,7 +120,6 @@ Response:
     "fechaCreacion": "2025-05-30T15:25:00.000Z",
     "fechaActualizacion": "2025-05-30T15:25:00.000Z"
   },
-  ...
 ]
 ```
 
