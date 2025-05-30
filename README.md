@@ -120,7 +120,6 @@ Response:
   "status": "completada"
 }
 
-```
 
 Response:
 ```json
@@ -128,6 +127,32 @@ Response:
   "message": "Tarea actualizada correctamente",
   "id": 1,
   "status": "completada"
+}
+```
+
+
+### 🔴 Eliminar una tarea
+
+**DELETE /tasks/:id**
+
+Elimina una tarea según su ID. Si la tarea se elimina correctamente, también se emite un evento WebSocket `taskDeleted` con el ID de la tarea eliminada.
+
+**Ejemplo de request:**
+
+DELETE /tasks/1
+
+**Ejemplo de respuesta exitosa:**
+
+```json
+{
+  "message": "Tarea eliminada correctamente",
+  "id": 1
+}
+
+Evento WebSocket emitido:
+{
+  "event": "taskDeleted",
+  "payload": { "id": 3 }
 }
 ```
 
