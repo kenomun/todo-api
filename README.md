@@ -29,30 +29,37 @@ Permite crear, consultar, actualizar y eliminar tareas, además de emitir evento
 
 3. Crea el archivo .env en la raíz del proyecto:   
 
-    PORT=3000
+    PORT=3000 (o le puerto de tu preferencia)
 
  
- 4. Inicia el servidor en modo desarrollo:
+ 4. Inicia el servidor:
 
+**En modo desarrollo**
     npm run dev
 
+**Ejecutar los test** 
+
+    npm test
 
 📦 Estructura del Proyecto
 
-    src/
+    Todo-API/
     ├── public/
     │   └── index.html
     |   └── main.js
     |   └── style.css
-    src/
-    ├── controllers/
-    │   └── tasks.controller.js
-    ├── database/
-    │   ├── db.js
-    │   └── tasks.db  ← Archivo SQLite que contiene la base de datos
-    ├── routes/
-    │   └── tasks.routes.js
-    └── index.js
+    ├── src/
+    |    ├── controllers/
+    |    │   └── tasks.controller.js
+    |    ├── database/
+    |    │   ├── db.js
+    |    │   └── tasks.db  ← Archivo SQLite que contiene la base de datos
+    |    ├── routes/
+    |    │   └── tasks.routes.js
+    |    └── index.js
+    ├── test/
+    │   └── setup.js
+    |   └── task.test.js
     .env
     README.ms
 
@@ -230,4 +237,43 @@ Se incluye un frontend muy simple en la carpeta `public` para facilitar la inter
 - Socket.io-client para conexión WebSocket.
 
 ---
+
+
+🧪 Pruebas
+
+Este proyecto incluye pruebas automatizadas para verificar el correcto funcionamiento de los endpoints de la API de tareas, utilizando Jest y Supertest.
+
+
+### Asegúrate de tener instaladas las siguientes dependencias en devDependencies:
+
+npm install --save-dev jest supertest
+
+
+### Cómo ejecutar las pruebas
+
+Ejecuta el siguiente comando desde la raíz del proyecto:
+
+npm test
+
+
+🔧 Notas técnicas
+
+    Se utiliza una instancia de SQLite en memoria para pruebas.
+
+    El servidor no se inicia con server.listen() durante las pruebas; se utiliza directamente la instancia de express desde src/app.js.
+
+    Se burla (mock) la instancia de io de Socket.io para evitar errores con eventos WebSocket durante la ejecución de pruebas.
+
+✅ Casos cubiertos
+
+Actualmente se prueban los siguientes endpoints:
+
+    POST /tasks: crea una nueva tarea.
+
+    GET /tasks: obtiene todas las tareas.
+
+    PUT /tasks/:id: actualiza el estado de una tarea (solo acepta "pendiente" o "completada").
+
+    DELETE /tasks/:id: elimina una tarea existente
+
 
