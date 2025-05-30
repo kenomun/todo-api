@@ -34,12 +34,13 @@ Permite crear, consultar, actualizar y eliminar tareas, además de emitir evento
  
  4. Inicia el servidor:
 
-**En modo desarrollo**
-    npm run dev
+    - En modo desarrollo
+    
+        npm run dev
 
-**Ejecutar los test** 
+    - Ejecutar los test
 
-    npm test
+         npm test
 
 📦 Estructura del Proyecto
 
