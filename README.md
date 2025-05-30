@@ -68,7 +68,6 @@ Request body:
 ]
 ```
 
-
 Restricciones:
 
     titulo: obligatorio, máximo 100 caracteres
@@ -90,8 +89,6 @@ Response:
 ]
 ```
 
-
-
 ### ✅ GET /tasks
 
 **Descripción:** Obtiene todas las tareas ordenadas por fecha de creación (más recientes primero).
@@ -111,6 +108,29 @@ Response:
   ...
 ]
 ```
+
+### 🔄 PUT /tasks/:id
+
+**Descripción:** Actualiza el estado de una tarea existente.
+
+**Request:**
+
+```json
+{
+  "status": "completada"
+}
+
+```
+
+Response:
+```json
+{
+  "message": "Tarea actualizada correctamente",
+  "id": 1,
+  "status": "completada"
+}
+```
+
 
 
 
