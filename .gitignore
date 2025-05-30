@@ -1,2 +1,3 @@
 /src/database/tasks.db
 node_modules/
+.env
