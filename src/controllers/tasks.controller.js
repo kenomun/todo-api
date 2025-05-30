@@ -46,3 +46,38 @@ exports.getAllTasks = (req, res) => {
     res.json(rows);
   });
 };
+
+
+exports.updateTaskStatus = (req, res) => {
+  const { id } = req.params;
+  const { status } = req.body;
+
+  if (!status) {
+    return res.status(400).json({ error: 'El campo "status" es obligatorio.' });
+  }
+
+  const fechaActualizacion = new Date().toISOString();
+  const sql = `
+    UPDATE tasks
+    SET status = ?, fechaActualizacion = ?
+    WHERE id = ?
+  `;
+
+  db.run(sql, [status, fechaActualizacion, id], function (err) {
+    if (err) {
+      return res.status(500).json({ error: 'Error al actualizar el estado de la tarea.' });
+    }
+
+    if (this.changes === 0) {
+      return res.status(404).json({ error: 'Tarea no encontrada.' });
+    }
+
+    // Emitir evento WebSocket
+    const io = req.app.get('io');
+    io.emit('taskUpdated', { id: parseInt(id), status });
+
+    res.json({ message: 'Tarea actualizada correctamente', id: parseInt(id), status });
+  });
+};
+
+
