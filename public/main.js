@@ -12,11 +12,15 @@ const fetchTasks = async () => {
 const addTaskToDOM = (task) => {
   const li = document.createElement('li');
   li.id = `task-${task.id}`;
+  li.classList.add('task-item');
   li.innerHTML = `
-    <strong>${task.titulo}</strong> - ${task.descripcion || ''} 
-    [${task.status}]
-    <button onclick="toggleStatus(${task.id}, '${task.status}')">Cambiar estado</button>
-    <button onclick="deleteTask(${task.id})">Eliminar</button>
+    <div class="task-col title">${task.titulo}</div>
+    <div class="task-col description">${task.descripcion || ''}</div>
+    <div class="task-col status">[${task.status}]</div>
+    <div class="task-col actions">
+      <button onclick="toggleStatus(${task.id}, '${task.status}')">Cambiar estado</button>
+      <button onclick="deleteTask(${task.id})">Eliminar</button>
+    </div>
   `;
   taskList.appendChild(li);
 };
@@ -41,6 +45,7 @@ form.addEventListener('submit', async (e) => {
 });
 
 const toggleStatus = async (id, currentStatus) => {
+  const status = currentStatus.trim().toLowerCase();
   const nuevoEstado = currentStatus === 'pendiente' ? 'completada' : 'pendiente';
 
   await fetch(`/tasks/${id}`, {
@@ -60,10 +65,19 @@ socket.on('newTask', (task) => addTaskToDOM(task));
 socket.on('taskUpdated', ({ id, status }) => {
   const li = document.getElementById(`task-${id}`);
   if (li) {
-    const parts = li.innerHTML.split('[');
-    li.innerHTML = parts[0] + `[${status}]` + parts[1].substring(parts[1].indexOf('</button>'));
+    const statusDiv = li.querySelector('.status');
+    if (statusDiv) {
+      statusDiv.textContent = `[${status}]`;
+    }
+
+    // Actualizar el onclick del botón "Cambiar estado"
+    const toggleButton = li.querySelector('.actions button:first-child');
+    if (toggleButton) {
+      toggleButton.setAttribute('onclick', `toggleStatus(${id}, '${status}')`);
+    }
   }
 });
+
 
 socket.on('taskDeleted', ({ id }) => {
   const li = document.getElementById(`task-${id}`);
