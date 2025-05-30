@@ -40,6 +40,11 @@ Permite crear, consultar, actualizar y eliminar tareas, además de emitir evento
 📦 Estructura del Proyecto
 
     src/
+    ├── public/
+    │   └── index.html
+    |   └── main.js
+    |   └── style.css
+    src/
     ├── controllers/
     │   └── tasks.controller.js
     ├── database/
@@ -49,6 +54,7 @@ Permite crear, consultar, actualizar y eliminar tareas, además de emitir evento
     │   └── tasks.routes.js
     └── index.js
     .env
+    README.ms
 
 
 📌 Endpoints REST
@@ -195,3 +201,33 @@ Se emite cuando se elimina una tarea.
     "id": 1
     }
 ```
+
+
+
+## Frontend Básico (Opcional)
+
+Se incluye un frontend muy simple en la carpeta `public` para facilitar la interacción y visualización en tiempo real de las tareas.
+
+### ¿Qué hace?
+
+- Se conecta al servidor WebSocket para recibir eventos en tiempo real:
+  - `newTask`: muestra inmediatamente una nueva tarea creada.
+  - `taskUpdated`: actualiza el estado de la tarea en la lista.
+  - `taskDeleted`: elimina la tarea de la lista.
+- Permite visualizar la lista actual de tareas y ver los cambios sin necesidad de refrescar la página.
+- También se puede interactuar con los endpoints REST mediante herramientas externas (Postman, curl) y ver los cambios reflejados automáticamente en el frontend.
+
+### ¿Cómo usarlo?
+
+1. Asegúrate que el servidor esté corriendo (`npm start` o `npm run dev`).
+2. Abre en el navegador el archivo `http://localhost:3000/` (o la URL que uses para el servidor).
+3. Crea, actualiza o elimina tareas desde Postman o cualquier cliente REST.
+4. Verás que las actualizaciones aparecen en la página en tiempo real gracias al WebSocket.
+
+### Tecnologías usadas en el frontend:
+
+- HTML y JavaScript puro (sin frameworks).
+- Socket.io-client para conexión WebSocket.
+
+---
+
