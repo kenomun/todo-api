@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gestión de Tareas</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Lista de Tareas</h1>
+
+  <form id="taskForm">
+    <input type="text" id="titulo" placeholder="Título" required maxlength="100" />
+    <input type="text" id="descripcion" placeholder="Descripción" maxlength="500" />
+    <button type="submit">Crear Tarea</button>
+  </form>
+
+  <ul id="taskList"></ul>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="main.js"></script>
+</body>
+</html>

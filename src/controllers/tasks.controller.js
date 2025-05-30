@@ -33,7 +33,7 @@ exports.createTask = (req, res) => {
 
     // Emitir evento WebSocket
     const io = req.app.get('io');
-    io.emit('taskCreated', nuevaTarea);
+    io.emit('newTask', nuevaTarea);
 
     res.status(201).json(nuevaTarea);
 
